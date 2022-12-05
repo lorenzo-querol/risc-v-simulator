@@ -2,7 +2,7 @@ import { Listbox, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 
 import { Mode } from "../types";
-import { modes } from "../constants";
+import { MODES } from "../constants";
 
 type ModeSelectProps = {
 	selectedMode: Mode;
@@ -39,7 +39,7 @@ const ModeSelect = ({ selectedMode, handleModeSelect }: ModeSelectProps) => {
 					leaveTo="opacity-0"
 				>
 					<Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-						{modes.map((mode, modeIdx) => (
+						{MODES.map((mode, modeIdx) => (
 							<Listbox.Option
 								key={modeIdx}
 								className={({ active }) =>

@@ -1,23 +1,25 @@
-import React, { useState } from "react";
-import { Listbox } from "@headlessui/react";
+import { useEffect, useState } from "react";
 
 import CodeEditor from "./components/CodeEditor";
 import ModeSelect from "./components/ModeSelect";
 import RegEditor from "./components/RegEditor";
+import CurrentLine from "./components/CurrentLine";
+import ExecutionTable from "./components/ExecutionTable";
 
-import { Mode } from "./types";
-import { modes } from "./constants";
+import { Mode, Register } from "./types";
+import { MODES } from "./constants";
+import { INITIAL_REGISTERS } from "./constants";
 
 function App() {
-	// Mode
-	const [selectedMode, setSelectedMode] = useState<Mode>(modes[1]);
-
 	// Controls
+	const [selectedMode, setSelectedMode] = useState<Mode>(MODES[1]);
 	const [isExecuted, setIsExecuted] = useState(false);
 	const [isLastInstruction, setIsLastInstruction] = useState(false);
 
 	// Code Content
 	const [code, setCode] = useState<string>("");
+	const [currentLine, setCurrentLine] = useState<string>("");
+	const [registers, setRegisters] = useState<Register[]>(INITIAL_REGISTERS);
 
 	const onChange = (action: string, data: string) => {
 		switch (action) {
@@ -29,6 +31,23 @@ function App() {
 				console.warn("case not handled!", action, data);
 			}
 		}
+	};
+
+	const handleRegisterChange = (value: string, name: string) => {
+		const newRegisters = registers.map((register) => {
+			if (register.name === name) {
+				return {
+					...register,
+					value: parseInt(value),
+					hex: parseInt(value).toString(16),
+					bin: parseInt(value).toString(2),
+				};
+			}
+
+			return register;
+		});
+
+		setRegisters(newRegisters);
 	};
 
 	const handleModeSelect = (mode: Mode) => {
@@ -44,7 +63,7 @@ function App() {
 	};
 
 	return (
-		<div className="justify-center w-screen h-screen pt-4 bg-slate-800">
+		<div className="pt-4 bg-slate-800 h-screen">
 			<div className="flex items-center justify-center w-full h-4 p-5 space-x-4 text-white">
 				{/* Title */}
 				<div className="text-3xl font-semibold">RISC-V Simulator</div>
@@ -103,9 +122,9 @@ function App() {
 
 				{/* Step button */}
 				<button
-					disabled={selectedMode.name !== modes[0].name ? true : false}
+					disabled={selectedMode.name !== MODES[0].name ? true : false}
 					className={`${
-						selectedMode.name !== modes[0].name ? "contrast-50" : ""
+						selectedMode.name !== MODES[0].name ? "contrast-50" : ""
 					} flex items-center justify-center w-32 px-4 py-2 space-x-3 bg-green-500 rounded-lg`}
 				>
 					<svg
@@ -126,13 +145,27 @@ function App() {
 				</button>
 			</div>
 
-			<div className="flex flex-row justify-center px-4 py-4 space-x-4 mx-80">
-				<div className="w-full h-full">
-					<CodeEditor onChange={onChange} />
+			<div className="flex flex-col justify-center p-4 mx-60">
+				<div className="flex flex-row space-x-4 h-[37.5rem]">
+					<div className="w-full">
+						<CodeEditor onChange={onChange} />
+					</div>
+					<div>
+						<RegEditor
+							registers={registers}
+							handleRegisterChange={handleRegisterChange}
+						/>
+						<CurrentLine currentLine={currentLine} />
+						<div className="text-slate-400 text-xs items-center flex flex-row mt-2">
+							This project was made by Lorenzo S. Querol, 2022
+						</div>
+					</div>
 				</div>
 
-				<div className="w-full h-full">
-					<RegEditor />
+				<div className="pt-0.5 my-4 bg-white rounded-full"></div>
+
+				<div className="w-full">
+					<ExecutionTable />
 				</div>
 			</div>
 		</div>

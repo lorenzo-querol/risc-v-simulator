@@ -14,18 +14,12 @@ const CodeEditor = ({ onChange }: CodeEditorProps) => {
 	};
 
 	return (
-		<div className="w-full h-full">
+		<>
 			<div className="py-2 font-semibold text-white">Editor</div>
 			<div className="overflow-hidden rounded-md overlay">
-				<Editor
-					height="60vh"
-					width={`100%`}
-					value={value}
-					defaultValue="# Start coding here"
-					// onChange={handleEditorChange}
-				/>
+				<Editor height="60vh" value={value} defaultValue="# Start coding here" />
 			</div>
-		</div>
+		</>
 	);
 };
 
