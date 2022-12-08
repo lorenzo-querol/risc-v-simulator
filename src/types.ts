@@ -9,3 +9,10 @@ export type Register = {
 	bin: string;
 	hex: string;
 };
+
+export type Instruction = {
+	memoryLocation: string;
+	hexOpcode: string;
+	binOpcode: string;
+	type: string;
+};

@@ -12,8 +12,8 @@ type ModeSelectProps = {
 const ModeSelect = ({ selectedMode, handleModeSelect }: ModeSelectProps) => {
 	return (
 		<Listbox value={selectedMode} onChange={handleModeSelect}>
-			<div className="relative z-10 w-64">
-				<Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+			<div className="relative z-10">
+				<Listbox.Button className="relative w-full px-3 py-2 pr-10 text-left truncate bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
 					<span className="font-semibold text-gray-900">{selectedMode.name}</span>
 					<span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
 						<svg
@@ -44,7 +44,7 @@ const ModeSelect = ({ selectedMode, handleModeSelect }: ModeSelectProps) => {
 								key={modeIdx}
 								className={({ active }) =>
 									`relative cursor-default select-none py-2 pl-10 pr-4 ${
-										active ? "bg-amber-100 text-amber-900" : "text-gray-900"
+										active ? "bg-blue-100 text-blue-900" : "text-gray-900"
 									}`
 								}
 								value={mode}
@@ -59,7 +59,7 @@ const ModeSelect = ({ selectedMode, handleModeSelect }: ModeSelectProps) => {
 											{mode.name}
 										</span>
 										{selected ? (
-											<span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+											<span className="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-600">
 												<svg
 													xmlns="http://www.w3.org/2000/svg"
 													fill="none"

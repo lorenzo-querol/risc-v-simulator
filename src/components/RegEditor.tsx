@@ -9,45 +9,47 @@ type RegEditorProps = {
 const RegEditor = ({ registers, handleRegisterChange }: RegEditorProps) => {
 	return (
 		<>
-			<div className="py-2 font-semibold text-white">Registers</div>
-			<div className="bg-white rounded-md text-xs h-[27rem] overflow-y-auto overflow">
-				<table className="table-fixed border-separate border-spacing-3">
-					<thead className="text-left">
-						<tr>
-							<th className="bg-slate-200 p-1 px-3 rounded-lg">Value</th>
-							<th className="bg-slate-200 p-1 px-3 rounded-lg">Register</th>
-							<th className="bg-slate-200 p-1 px-3 rounded-lg">Hexadecimal</th>
-							<th className="bg-slate-200 p-1 px-3 rounded-lg">Binary</th>
-						</tr>
-					</thead>
-					<tbody className="font-code">
-						{registers.map((register, index) => (
+			<div className="font-semibold text-white">Registers</div>
+			<div className="overflow-hidden rounded-md overlay">
+				<div className="flex w-full justify-center overflow-y-auto text-xs bg-white h-[29.6rem]">
+					<table className="border-separate table-auto border-spacing-3">
+						<thead className="text-left">
 							<tr>
-								<td>
-									{register.name === "x0" ? (
-										0
-									) : (
-										<input
-											type="text"
-											className="form-input text-xs w-full rounded-sm p-1"
-											onChange={(event) => {
-												handleRegisterChange(
-													event.target.value === ""
-														? "0"
-														: event.target.value,
-													register.name,
-												);
-											}}
-										/>
-									)}
-								</td>
-								<td className="text-center">{register.name}</td>
-								<td>0x{register.hex.toUpperCase().padStart(8, "0")}</td>
-								<td>0b{register.bin.padStart(32, "0")}</td>
+								<th className="p-1 px-3 rounded-md bg-slate-200">Value</th>
+								<th className="p-1 px-3 rounded-md bg-slate-200">Register</th>
+								<th className="p-1 px-3 rounded-md bg-slate-200">Hexadecimal</th>
+								<th className="p-1 px-3 rounded-md bg-slate-200">Binary</th>
 							</tr>
-						))}
-					</tbody>
-				</table>
+						</thead>
+						<tbody className="font-code">
+							{registers.map((register, index) => (
+								<tr>
+									<td>
+										{register.name === "x0" ? (
+											0
+										) : (
+											<input
+												type="text"
+												className="w-24 p-1 text-xs rounded-sm form-input"
+												onChange={(event) => {
+													handleRegisterChange(
+														event.target.value === ""
+															? "0"
+															: event.target.value,
+														register.name,
+													);
+												}}
+											/>
+										)}
+									</td>
+									<td className="text-center">{register.name}</td>
+									<td>0x{register.hex.toUpperCase().padStart(8, "0")}</td>
+									<td>0b{register.bin.padStart(32, "0")}</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</>
 	);
