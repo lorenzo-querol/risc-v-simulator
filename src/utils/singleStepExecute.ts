@@ -82,6 +82,7 @@ export default function SingleStepExecute(
 	executionTable: ExecutionTableType,
 	data: DataEntry[],
 	registers: Register[],
+	currentPC: string,
 ) {
 	let IR: string[] = executionTable.IR,
 		PC: string[] = executionTable.PC,
@@ -105,9 +106,9 @@ export default function SingleStepExecute(
 	let dataEnd = MEMORY_LOCATIONS.find((instruction: any) => instruction.name === "DATA_END")
 		?.address!;
 
-	let currentPC = MEMORY_LOCATIONS.find(
-		(instruction: any) => instruction.name === "PROGRAM_START",
-	)?.address!;
+	// let currentPC = MEMORY_LOCATIONS.find(
+	// 	(instruction: any) => instruction.name === "PROGRAM_START",
+	// )?.address!;
 
 	if (parseInt(currentPC, 16) === parseInt(currentInstruction.memoryLocation, 16)) {
 		// IF cycle
@@ -269,5 +270,6 @@ export default function SingleStepExecute(
 		table: { IR, PC, NPC, A, B, IMM, COND, ALU, LMD, RN },
 		data: data,
 		registers: registers,
+		currentPC: currentPC,
 	};
 }

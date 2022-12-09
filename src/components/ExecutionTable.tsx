@@ -14,7 +14,7 @@ const ExecutionTable = ({ executionTable }: ExecutionTableProps) => {
 				<table className="table-auto text-center border-separate border-spacing-2">
 					<tbody>
 						<tr>
-							<th>Instruction</th>
+							<th className="p-1">Instruction</th>
 							{executionTable.IR.map(
 								(instruction, index) =>
 									instruction !== " " && (
@@ -23,7 +23,7 @@ const ExecutionTable = ({ executionTable }: ExecutionTableProps) => {
 							)}
 						</tr>
 						<tr>
-							<th>IR</th>
+							<th className="p-1">IR</th>
 							{executionTable.IR.map(
 								(instruction, index) =>
 									instruction !== " " && (
@@ -34,7 +34,7 @@ const ExecutionTable = ({ executionTable }: ExecutionTableProps) => {
 							)}
 						</tr>
 						<tr>
-							<th>PC</th>
+							<th className="p-1">PC</th>
 							{executionTable.PC.map(
 								(instruction, index) =>
 									instruction !== " " && (
@@ -45,7 +45,7 @@ const ExecutionTable = ({ executionTable }: ExecutionTableProps) => {
 							)}
 						</tr>
 						<tr>
-							<th>NPC</th>
+							<th className="p-1">NPC</th>
 							{executionTable.NPC.map(
 								(instruction, index) =>
 									instruction !== " " && (
@@ -56,7 +56,7 @@ const ExecutionTable = ({ executionTable }: ExecutionTableProps) => {
 							)}
 						</tr>
 						<tr>
-							<th>A</th>
+							<th className="p-1">A</th>
 							{executionTable.A.map(
 								(instruction, index) =>
 									instruction !== " " && (
@@ -67,7 +67,7 @@ const ExecutionTable = ({ executionTable }: ExecutionTableProps) => {
 							)}
 						</tr>
 						<tr>
-							<th>B</th>
+							<th className="p-1">B</th>
 							{executionTable.B.map(
 								(instruction, index) =>
 									instruction !== " " && (
@@ -78,7 +78,7 @@ const ExecutionTable = ({ executionTable }: ExecutionTableProps) => {
 							)}
 						</tr>
 						<tr>
-							<th>IMM</th>
+							<th className="p-1">IMM</th>
 							{executionTable.IMM.map(
 								(instruction, index) =>
 									instruction !== " " && (
@@ -89,7 +89,7 @@ const ExecutionTable = ({ executionTable }: ExecutionTableProps) => {
 							)}
 						</tr>
 						<tr>
-							<th>COND</th>
+							<th className="p-1">COND</th>
 							{executionTable.COND.map(
 								(instruction, index) =>
 									instruction !== " " && (
@@ -100,7 +100,7 @@ const ExecutionTable = ({ executionTable }: ExecutionTableProps) => {
 							)}
 						</tr>
 						<tr>
-							<th>ALU</th>
+							<th className="p-1">ALU</th>
 							{executionTable.ALU.map(
 								(instruction, index) =>
 									instruction !== " " && (
@@ -111,7 +111,7 @@ const ExecutionTable = ({ executionTable }: ExecutionTableProps) => {
 							)}
 						</tr>
 						<tr>
-							<th>LMD</th>
+							<th className="p-1">LMD</th>
 							{executionTable.LMD.map(
 								(instruction, index) =>
 									instruction !== " " && (
@@ -122,7 +122,7 @@ const ExecutionTable = ({ executionTable }: ExecutionTableProps) => {
 							)}
 						</tr>
 						<tr>
-							<th>RN</th>
+							<th className="p-1">RN</th>
 							{executionTable.RN.map(
 								(instruction, index) =>
 									instruction !== " " && (

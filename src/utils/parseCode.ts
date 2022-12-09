@@ -175,9 +175,12 @@ const encodeInstructions = (instructions: Instruction[]) => {
 
 			case "B":
 				label = components[3];
+				let regex = new RegExp(`\\W*${label}:`);
 				labelInstruction = instructions.find((instruction) => {
-					return instruction.hexOpcode.startsWith(label);
+					return regex.test(instruction.hexOpcode);
 				})!;
+
+				if (!labelInstruction) throw new Error("Cannot find label in instruction");
 
 				let offset =
 					(parseInt(labelInstruction!.memoryLocation, 16) -
@@ -221,7 +224,7 @@ const encodeInstructions = (instructions: Instruction[]) => {
 export default function parseCode(
 	mode: Mode,
 	code: string,
-	handleChangeInstructions: (instructions: Instruction[], preprocessedCode: string[]) => void,
+	handleChangeInstructions?: (instructions: Instruction[], preprocessedCode: string[]) => void,
 ) {
 	// Preprocess the lines of code from the editor
 	const preprocessedCode = preprocessCode(code);
@@ -234,8 +237,5 @@ export default function parseCode(
 	let encodedInstructions: Instruction[] = [];
 	encodedInstructions = encodeInstructions(instructions);
 
-	if (mode.name === MODES[1].name)
-		handleChangeInstructions(encodedInstructions, preprocessedCode);
-
-	return encodedInstructions;
+	return { encoded: encodedInstructions, preprocessed: preprocessedCode };
 }
