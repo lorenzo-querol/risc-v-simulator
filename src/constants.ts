@@ -3,6 +3,15 @@ export const MODES = [
 	{ id: 2, name: "Full Execution Mode" },
 ];
 
+export const INITIAL_INSTRUCTIONS = [
+	{
+		memoryLocation: "00000000",
+		hexOpcode: "00000000",
+		binOpcode: "00000000000000000000000000000000",
+		type: "",
+	},
+];
+
 export const INITIAL_REGISTERS = [
 	{ name: "x0", value: 0, bin: "00000000000000000000000000000000", hex: "00000000" },
 	{ name: "x1", value: 0, bin: "00000000000000000000000000000000", hex: "00000000" },
@@ -36,6 +45,28 @@ export const INITIAL_REGISTERS = [
 	{ name: "x29", value: 0, bin: "00000000000000000000000000000000", hex: "00000000" },
 	{ name: "x30", value: 0, bin: "00000000000000000000000000000000", hex: "00000000" },
 	{ name: "x31", value: 0, bin: "00000000000000000000000000000000", hex: "00000000" },
+];
+
+export const INITIAL_EXECUTION_TABLE = {
+	IR: ["00000000"],
+	PC: ["00000000"],
+	NPC: ["00000000"],
+	A: ["00000000"],
+	B: ["00000000"],
+	IMM: ["00000000"],
+	COND: ["00000000"],
+	ALU: ["00000000"],
+	LMD: ["00000000"],
+	RN: ["00000000"],
+};
+
+export const INITIAL_DATA = [
+	{
+		memoryLocation: "00000000",
+		value: 0,
+		bin: "00000000000000000000000000000000",
+		hex: "00000000",
+	},
 ];
 
 export const MEMORY_LOCATIONS = [

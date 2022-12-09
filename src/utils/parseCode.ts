@@ -1,7 +1,12 @@
-import { MEMORY_LOCATIONS, SUPPORTED_INSTRUCTIONS, INSTRUCTIONS_OPCODES } from "../constants";
-import { Instruction } from "../types";
+import {
+	MEMORY_LOCATIONS,
+	SUPPORTED_INSTRUCTIONS,
+	INSTRUCTIONS_OPCODES,
+	MODES,
+} from "../constants";
+import { Instruction, Mode } from "../types";
 
-const preprocessCode = (code: string) => {
+export const preprocessCode = (code: string) => {
 	// Split code by new lines
 	const codeLines = code.split("\n");
 
@@ -10,7 +15,7 @@ const preprocessCode = (code: string) => {
 
 	// Remove any carriage return \r characters at the end of each line
 	const noCarriageReturns = noEmptyLines.map((codeLine) => {
-		return codeLine.replace("\r", "");
+		return codeLine.replace(/\\[a-z]/, "");
 	});
 
 	// Remove any comments
@@ -54,9 +59,9 @@ const getInstructionType = (opcode: string) => {
 	if (!SUPPORTED_INSTRUCTIONS.includes(opcode))
 		throw new Error(`Unsupported instruction: ${opcode}`);
 
-	if (opcode === "addi" || opcode === "ori") return "I";
+	if (opcode === "addi" || opcode === "ori" || opcode === "lw") return "I";
 	if (opcode === "add" || opcode === "or" || opcode === "sub") return "R";
-	if (opcode === "sw" || opcode === "lw") return "S";
+	if (opcode === "sw") return "S";
 	if (opcode === "beq" || opcode === "bne" || opcode === "blt") return "B";
 };
 
@@ -131,6 +136,14 @@ const encodeInstructions = (instructions: Instruction[]) => {
 					rd = parseInt(components[1].split("x")[1]).toString(2).padStart(5, "0");
 					rs1 = parseInt(components[2].split("x")[1]).toString(2).padStart(5, "0");
 					imm = parseInt(components[3]).toString(2).padStart(12, "0");
+
+					if (components[0] === "lw") {
+						immComponent = components[2].split("(");
+						rs1 = parseInt(immComponent[1].replace(")", "").split("x")[1])
+							.toString(2)
+							.padStart(5, "0");
+						imm = parseInt(immComponent[0], 16).toString(2).padStart(12, "0");
+					}
 				}
 
 				hexOpcode = imm + rs1 + instructionOpcode.funct3 + rd + instructionOpcode.opcode;
@@ -205,7 +218,11 @@ const encodeInstructions = (instructions: Instruction[]) => {
 	return encodedInstructions;
 };
 
-export default function parseCode(code: string) {
+export default function parseCode(
+	mode: Mode,
+	code: string,
+	handleChangeInstructions: (instructions: Instruction[], preprocessedCode: string[]) => void,
+) {
 	// Preprocess the lines of code from the editor
 	const preprocessedCode = preprocessCode(code);
 
@@ -216,6 +233,9 @@ export default function parseCode(code: string) {
 	// Encode the instructions into hex opcodes
 	let encodedInstructions: Instruction[] = [];
 	encodedInstructions = encodeInstructions(instructions);
+
+	if (mode.name === MODES[1].name)
+		handleChangeInstructions(encodedInstructions, preprocessedCode);
 
 	return encodedInstructions;
 }

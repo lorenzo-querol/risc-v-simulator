@@ -23,7 +23,7 @@ const RegEditor = ({ registers, handleRegisterChange }: RegEditorProps) => {
 						</thead>
 						<tbody className="font-code">
 							{registers.map((register, index) => (
-								<tr>
+								<tr key={index}>
 									<td>
 										{register.name === "x0" ? (
 											0
@@ -43,8 +43,8 @@ const RegEditor = ({ registers, handleRegisterChange }: RegEditorProps) => {
 										)}
 									</td>
 									<td className="text-center">{register.name}</td>
-									<td>0x{register.hex.toUpperCase().padStart(8, "0")}</td>
-									<td>0b{register.bin.padStart(32, "0")}</td>
+									<td>0x{register.hex}</td>
+									<td>0b{register.bin}</td>
 								</tr>
 							))}
 						</tbody>

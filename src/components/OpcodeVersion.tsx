@@ -22,7 +22,7 @@ const OpcodeVersion = ({ instructions }: OpcoderVersionProps) => {
 					</thead>
 					<tbody className="font-code">
 						{instructions.map((instruction, index) => (
-							<tr>
+							<tr key={index}>
 								<td className="text-center">{instruction.memoryLocation}</td>
 								<td className="text-center">{instruction.hexOpcode}</td>
 							</tr>

@@ -24,7 +24,7 @@ const CodeEditor = ({ code, onChange }: CodeEditorProps) => {
 					height="51vh"
 					value={value}
 					onChange={handleEditorChange}
-					defaultValue="# Start coding here"
+					defaultValue={`# Start coding here`}
 				/>
 			</div>
 		</>
