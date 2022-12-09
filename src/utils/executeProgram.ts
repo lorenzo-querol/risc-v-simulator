@@ -2,10 +2,19 @@ import { DataEntry, Instruction, Register } from "../types";
 import { MEMORY_LOCATIONS, INSTRUCTIONS_OPCODES } from "../constants";
 import { parse } from "path";
 
-const getOperation = (funct3: string, opcode: string) => {
-	const instruction = INSTRUCTIONS_OPCODES.find(
+const getOperation = (funct3: string, opcode: string, funct7?: string) => {
+	let instruction = INSTRUCTIONS_OPCODES.find(
 		(instruction) => instruction.funct3 === funct3 && instruction.opcode === opcode,
 	);
+
+	if ("funct7" in instruction!) {
+		instruction = INSTRUCTIONS_OPCODES.find(
+			(instruction) =>
+				instruction.funct3 === funct3 &&
+				instruction.opcode === opcode &&
+				instruction.funct7 === funct7,
+		);
+	}
 
 	if (!instruction) throw new Error("Unsupported instruction");
 
@@ -44,6 +53,7 @@ const executeOperation = (
 			break;
 
 		case "sub":
+			console.log(A, B);
 			ALU = A - B;
 			break;
 
@@ -151,6 +161,7 @@ export default function executeProgram(
 			operation = getOperation(
 				instruction.binOpcode.slice(17, 20),
 				instruction.binOpcode.slice(25, 32),
+				instruction.binOpcode.slice(0, 7),
 			);
 
 			branchResults = executeOperation(
