@@ -1,5 +1,5 @@
 
-# RISC-V Simulator
+# risc-v-simulator
 
 This is a RISC-V simulator written in TypeScript. It is a work in progress, but support for RV32I is functional. The simulator is written for sequential execution, and does not yet support pipelining.
 
